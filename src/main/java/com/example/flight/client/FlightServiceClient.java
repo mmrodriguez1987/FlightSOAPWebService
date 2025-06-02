@@ -43,8 +43,11 @@ public class FlightServiceClient {
         ObjectFactory factory = new ObjectFactory();
 
         FlightAvailabilityRequestType request = factory.createFlightAvailabilityRequestType();
+
+        request.setSpecificFlight(factory.createSpecificFlightType());
         request.setOrigin("JFK");
         request.setDestination("LAX");
+        request.setPreferredAirlines(factory.createFlightAvailabilityRequestTypePreferredAirlines());
 
         // Convert LocalDate to XMLGregorianCalendar
         LocalDate departureDate = LocalDate.now().plusDays(30);
@@ -53,14 +56,22 @@ public class FlightServiceClient {
         XMLGregorianCalendar xmlDate = DatatypeFactory.newInstance().newXMLGregorianCalendar(gcal);
         request.setDepartureDate(xmlDate);
 
-        // Create passengers
-        PassengersType passengers = factory.createPassengersType();
 
-        // Use the correct enum type
+
+        // Create passengers
+        FlightAvailabilityRequestType.Passengers passengers = factory.createFlightAvailabilityRequestTypePassengers();
+
+        // Add adult passenger
         PassengerCountType adultPassenger = factory.createPassengerCountType();
         adultPassenger.setType(PassengerTypeEnum.ADT);
-        adultPassenger.setQuantity(BigInteger.valueOf(1));
+        adultPassenger.setQuantity(BigInteger.valueOf(2));
         passengers.getPassenger().add(adultPassenger);
+
+        // Add child passenger
+        PassengerCountType childPassenger = factory.createPassengerCountType();
+        childPassenger.setType(PassengerTypeEnum.CHD);
+        childPassenger.setQuantity(BigInteger.valueOf(1));
+        passengers.getPassenger().add(childPassenger);
 
         request.setPassengers(passengers);
         return request;
