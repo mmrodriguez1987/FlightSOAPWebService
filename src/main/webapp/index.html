@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight SOAP Web Service</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+            color: #333;
+        }
+        h1 {
+            color: #0066cc;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .info {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .endpoints {
+            margin-top: 30px;
+        }
+        .endpoint {
+            background-color: #e9f5ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        code {
+            background-color: #f0f0f0;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>Flight SOAP Web Service</h1>
+    
+    <div class="info">
+        <p>This is a SOAP Web Service for managing flight information based on the flight.xsd schema.</p>
+        <p>The WSDL is available at: <a href="services/flightService?wsdl">services/flightService?wsdl</a></p>
+    </div>
+    
+    <div class="endpoints">
+        <h2>Available Operations:</h2>
+        
+        <div class="endpoint">
+            <h3>registerFlight</h3>
+            <p>Register a new flight in the system</p>
+            <p><strong>Input:</strong> FlightAvailabilityRequestType</p>
+            <p><strong>Output:</strong> String (flightId)</p>
+        </div>
+        
+        <div class="endpoint">
+            <h3>getFlight</h3>
+            <p>Retrieve flight details by ID</p>
+            <p><strong>Input:</strong> String (flightId)</p>
+            <p><strong>Output:</strong> FlightAvailabilityRequestType</p>
+        </div>
+        
+        <div class="endpoint">
+            <h3>getAllFlightIds</h3>
+            <p>Get a list of all flight IDs in the system</p>
+            <p><strong>Input:</strong> None</p>
+            <p><strong>Output:</strong> List of Strings (flightIds)</p>
+        </div>
+        
+        <div class="endpoint">
+            <h3>deleteFlight</h3>
+            <p>Delete a flight from the system</p>
+            <p><strong>Input:</strong> String (flightId)</p>
+            <p><strong>Output:</strong> None</p>
+        </div>
+    </div>
+</body>
+</html>

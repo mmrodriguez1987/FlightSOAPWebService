@@ -1,101 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="
-           http://maven.apache.org/POM/4.0.0
-           https://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.example</groupId>
-  <artifactId>FlightServiceSOAP</artifactId>
-  <version>1.0-SNAPSHOT</version>
-  <packaging>war</packaging>
+    <groupId>com.example</groupId>
+    <artifactId>FlightSOAPWebService</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
-  <dependencies>
-  <!-- JAX-WS Reference Implementation (runtime) -->
-  <dependency>
-    <groupId>com.sun.xml.ws</groupId>
-    <artifactId>jaxws-rt</artifactId>
-    <version>2.3.4</version>
-  </dependency>
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Existing properties -->
+        <azure.resourceGroup>flight-service-rg</azure.resourceGroup>
+        <azure.appName>flight-soap-service</azure.appName>
+        <azure.region>eastus</azure.region>
+    </properties>
 
-  <!-- SAAJ API (JAXB‑WS needs this on Java 11+) -->
-  <dependency>
-    <groupId>javax.xml.soap</groupId>
-    <artifactId>javax.xml.soap-api</artifactId>
-    <version>1.4.0</version>
-  </dependency>
+    <dependencies>
+        <!-- JAX-WS API -->
+        <dependency>
+            <groupId>jakarta.xml.ws</groupId>
+            <artifactId>jakarta.xml.ws-api</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+        
+        <!-- JAXB API -->
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+        
+        <!-- JAXB Runtime -->
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+        
+        <!-- JAX-WS Runtime -->
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>jaxws-rt</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+        
+        <!-- Servlet API -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>5.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 
-  <!-- SAAJ Implementation (provides com.sun.xml.internal.messaging.saaj.*) -->
-  <dependency>
-    <groupId>com.sun.xml.messaging.saaj</groupId>
-    <artifactId>saaj-impl</artifactId>
-    <version>1.5.3</version>
-  </dependency>
-
-  <!-- (any other existing dependencies…) -->
-</dependencies>
-
-
-  <build>
-  <plugins>
-    <plugin>
-      <groupId>org.codehaus.mojo</groupId>
-      <artifactId>jaxb2-maven-plugin</artifactId>
-      <version>2.5.0</version>
-      <executions>
-        <execution>
-          <id>xjc-generate</id>
-          <goals>
-            <goal>xjc</goal>
-          </goals>
-          <configuration>
-            <packageName>com.example.flightservicesoap</packageName>           
-            <schemaDirectory>${project.basedir}/src/main/resources</schemaDirectory>          
-            <schemaIncludes>
-                <include>flight.xsd</include>
-            </schemaIncludes>            
-            <sources>
-                <source>${project.basedir}/src/main/resources</source>
-            </sources>
-          </configuration>
-        </execution>
-      </executions>
-    </plugin>
-
-    <!-- your existing compiler plugin, etc. -->
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-compiler-plugin</artifactId>
-      <version>3.10.1</version>
-      <configuration>
-        <source>1.8</source>
-        <target>1.8</target>
-      </configuration>
-    </plugin>
-    
-    <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <version>3.1.0</version>
-        <configuration>
-            <!-- Fully‑qualified name of your Publisher class -->
-            <mainClass>com.example.flight.service.Publisher</mainClass>
-            <!-- (Optional) Ensure classpathScope is compile, so generated JAXB classes are included -->
-            <classpathScope>compile</classpathScope>            
-            <!-- OPEN the jdk.internal.misc package so Metro can use Unsafe via reflection -->
-        <jvmArguments>--add-opens=java.base/jdk.internal.misc=ALL-UNNAMED</jvmArguments>
-        </configuration>
-        <!-- You can even bind it to a phase, but not strictly necessary -->
-        <!--
-            <executions>
-              <execution>
-                <goals><goal>java</goal></goals>
-              </execution>
-            </executions>
-            -->
-</plugin>
-
-  </plugins>
-</build>
+    <build>
+        <plugins>
+            <!-- Azure Web App Maven Plugin -->
+            <plugin>
+                <groupId>com.microsoft.azure</groupId>
+                <artifactId>azure-webapp-maven-plugin</artifactId>
+                <version>2.11.0</version>
+                <configuration>
+                    <schemaVersion>v2</schemaVersion>
+                    <resourceGroup>${azure.resourceGroup}</resourceGroup>
+                    <appName>${azure.appName}</appName>
+                    <region>${azure.region}</region>
+                    <pricingTier>P1v2</pricingTier>
+                    <runtime>
+                        <os>Linux</os>
+                        <javaVersion>Java 17</javaVersion>
+                        <webContainer>Tomcat 10.0</webContainer>
+                    </runtime>
+                    <deployment>
+                        <resources>
+                            <resource>
+                                <directory>${project.basedir}/target</directory>
+                                <includes>
+                                    <include>*.war</include>
+                                </includes>
+                            </resource>
+                        </resources>
+                    </deployment>
+                </configuration>
+            </plugin>
+            <!-- Compiler plugin to set Java version -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.2</version>
+            </plugin>
+            <!-- Plugin for generating Java classes from XSD -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxb2-maven-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>xjc</id>
+                        <goals>
+                            <goal>xjc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <sources>
+                        <source>${project.basedir}/src/main/resources/flight.xsd</source>
+                    </sources>
+                    <packageName>com.example.flight.model</packageName>
+                    <outputDirectory>${project.build.directory}/generated-sources/jaxb</outputDirectory>
+                    <clearOutputDir>false</clearOutputDir>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
