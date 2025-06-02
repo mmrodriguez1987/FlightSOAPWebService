@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight SOAP Web Service</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            line-height: 1.6;
+            color: #333;
+        }
+        h1 {
+            color: #0066cc;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+        }
+        .info {
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        .endpoints {
+            margin-top: 30px;
+        }
+        .endpoint {
+            background-color: #e9f5ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 25px;
+        }
+        code {
+            background-color: #f0f0f0;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 14px;
+        }
+        .sample {
+            margin-top: 15px;
+            border-left: 3px solid #0066cc;
+            padding-left: 15px;
+        }
+        h4 {
+            margin-bottom: 5px;
+            color: #0066cc;
+        }
+    </style>
+</head>
+<body>
+    <h1>MSIT665 - Web Service -Flight SOAP Web Service</h1>
+
+    <div class="info">
+        <p>This is a SOAP Web Service for managing flight information based on the flight.xsd schema.</p>
+        <p>The WSDL is available at: <a href="services/flightService?wsdl">services/flightService?wsdl</a></p>
+        <p>Endpoint URL: <code>http://[host]:[port]/FlightSOAPWebService/services/flightService</code></p>
+        <p>Developed by <a href="https://www.linkedin.com/in/mmrodriguez1987/">Marcos Rodriguez</a></p>
+        <p>Version: 1.0.0</p>
+        <p>Source code available in <a href="https://github.com/mmrodriguez1987/FlightSOAPWebService/tree/main">FlightSOAPWebService</a></p>
+    </div>
+
+    <div class="info">
+        <h2>Getting Started</h2>
+        <p>To use this service, you can:</p>
+        <ul>
+            <li>Use a SOAP client like SoapUI or Postman</li>
+            <li>Generate client code using the WSDL with tools like wsimport, Apache CXF, or Spring-WS</li>
+            <li>Use the provided Java client in <code>com.example.flight.client.FlightServiceClient</code></li>
+        </ul>
+    </div>
+
+    <div class="endpoints">
+        <h2>Available Operations:</h2>
+
+        <div class="endpoint">
+            <h3>registerFlight</h3>
+            <p>Register a new flight in the system</p>
+            <p><strong>Input:</strong> FlightAvailabilityRequestType</p>
+            <p><strong>Output:</strong> String (flightId)</p>
+
+            <div class="sample">
+                <h4>Sample Request</h4>
+                <pre>&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:flig="http://example.com/flight/ws" xmlns:exam="http://example.com/flight"&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;flig:registerFlightRequest&gt;
+         &lt;flight&gt;
+            &lt;exam:Origin&gt;JFK&lt;/exam:Origin&gt;
+            &lt;exam:Destination&gt;LAX&lt;/exam:Destination&gt;
+            &lt;exam:DepartureDate&gt;2024-08-30&lt;/exam:DepartureDate&gt;
+            &lt;exam:FlightNumber&gt;AA123&lt;/exam:FlightNumber&gt;
+            &lt;exam:AvailableSeats&gt;100&lt;/exam:AvailableSeats&gt;
+            &lt;exam:Price&gt;299.99&lt;/exam:Price&gt;
+            &lt;exam:Passengers&gt;
+               &lt;exam:Passenger&gt;
+                  &lt;exam:Type&gt;ADT&lt;/exam:Type&gt;
+                  &lt;exam:Quantity&gt;2&lt;/exam:Quantity&gt;
+               &lt;/exam:Passenger&gt;
+               &lt;exam:Passenger&gt;
+                  &lt;exam:Type&gt;CHD&lt;/exam:Type&gt;
+                  &lt;exam:Quantity&gt;1&lt;/exam:Quantity&gt;
+               &lt;/exam:Passenger&gt;
+            &lt;/exam:Passengers&gt;
+         &lt;/flight&gt;
+      &lt;/flig:registerFlightRequest&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <h3>getFlight</h3>
+            <p>Retrieve flight details by ID</p>
+            <p><strong>Input:</strong> String (flightId)</p>
+            <p><strong>Output:</strong> FlightAvailabilityRequestType</p>
+
+            <div class="sample">
+                <h4>Sample Request</h4>
+                <pre>&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:flig="http://example.com/flight/ws"&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;flig:getFlightRequest&gt;
+         &lt;flightId&gt;FL-12345&lt;/flightId&gt;
+      &lt;/flig:getFlightRequest&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <h3>getAllFlightIds</h3>
+            <p>Get a list of all flight IDs in the system</p>
+            <p><strong>Input:</strong> None</p>
+            <p><strong>Output:</strong> List of Strings (flightIds)</p>
+
+            <div class="sample">
+                <h4>Sample Request</h4>
+                <pre>&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:flig="http://example.com/flight/ws"&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;flig:getAllFlightIdsRequest/&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</pre>
+            </div>
+        </div>
+
+        <div class="endpoint">
+            <h3>deleteFlight</h3>
+            <p>Delete a flight from the system</p>
+            <p><strong>Input:</strong> String (flightId)</p>
+            <p><strong>Output:</strong> None</p>
+
+            <div class="sample">
+                <h4>Sample Request</h4>
+                <pre>&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:flig="http://example.com/flight/ws"&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;flig:deleteFlightRequest&gt;
+         &lt;flightId&gt;FL-12345&lt;/flightId&gt;
+      &lt;/flig:deleteFlightRequest&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="info">
+        <h2>Java Client Example</h2>
+        <p>You can use the Java client to interact with this service:</p>
+        <pre>
+FlightServiceClient client = new FlightServiceClient();
+FlightAvailabilityRequestType request = client.createSampleFlightRequest();
+String flightId = client.registerFlight(request);
+System.out.println("Flight registered with ID: " + flightId);
+        </pre>
+    </div>
+</body>
+</html>
