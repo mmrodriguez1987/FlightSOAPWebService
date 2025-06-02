@@ -110,10 +110,22 @@
                     <sources>
                         <source>${project.basedir}/src/main/resources/flight.xsd</source>
                     </sources>
-                    <packageName>com.example.flight.model</packageName>
-                    <outputDirectory>${project.build.directory}/generated-sources/jaxb</outputDirectory>
+                    <packageName>com.example.flight.generated</packageName>
                     <clearOutputDir>false</clearOutputDir>
+                    <noPackageLevelAnnotations>true</noPackageLevelAnnotations>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>jakarta.xml.bind</groupId>
+                        <artifactId>jakarta.xml.bind-api</artifactId>
+                        <version>4.0.0</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.sun.xml.bind</groupId>
+                        <artifactId>jaxb-impl</artifactId>
+                        <version>4.0.3</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>

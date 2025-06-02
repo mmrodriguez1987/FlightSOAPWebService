@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 
 public class FlightRepository {
     private static final String STORAGE_DIR = System.getProperty("catalina.base", System.getProperty("user.home")) + "/flightdata";
-    
+
     public FlightRepository() {
         // Ensure storage directory exists
         File storageDir = new File(STORAGE_DIR);

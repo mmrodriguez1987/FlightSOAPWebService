@@ -50,4 +50,6 @@ public class FlightService {
     public void deleteFlight(@WebParam(name = "flightId") String flightId) {
         repository.deleteFlight(flightId);
     }
+
 }
+
