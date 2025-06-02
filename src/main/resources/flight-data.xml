@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FlightAvailabilityRequest
+    xmlns="http://example.com/flight"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://example.com/flight flight.xsd">
+
+  <!-- Required: origin and destination airports (IATA codes) -->
+  <Origin>JFK</Origin>
+  <Destination>LAX</Destination>
+
+  <!-- Required: departure date -->
+  <DepartureDate>2025-07-15</DepartureDate>
+
+  <!-- Required: passenger counts (up to three distinct types) -->
+  <Passengers>
+    <Passenger Type="ADT" Quantity="2"/>
+    <Passenger Type="CHD" Quantity="1"/>
+  </Passengers>
+
+  <!-- Optional: restrict departure to a specific time window -->
+  <TimeRange>
+    <StartTime>08:00:00</StartTime>
+    <EndTime>12:00:00</EndTime>
+  </TimeRange>
+
+  <!-- Optional: preferred connecting cities -->
+  <PreferredConnectingCities>
+    <ConnectingCity>ORD</ConnectingCity>
+    <ConnectingCity>DFW</ConnectingCity>
+  </PreferredConnectingCities>
+
+  <!-- Optional: list of preferred airlines -->
+  <PreferredAirlines>
+    <AirlineCode>AA</AirlineCode>
+    <AirlineCode>DL</AirlineCode>
+  </PreferredAirlines>
+
+  <!-- Optional: preferred flight types -->
+  <FlightTypes>
+    <FlightType>NonStop</FlightType>
+    <FlightType>OneStop</FlightType>
+  </FlightTypes>
+
+  <!-- Optional: narrow request to a single airline -->
+  <SpecificAirline>UA</SpecificAirline>
+
+  <!-- Optional: narrow request to a single flight (with booking class) -->
+  <SpecificFlight>
+    <AirlineCode>UA</AirlineCode>
+    <FlightNumber>450</FlightNumber>
+    <FlightDate>2025-07-15</FlightDate>
+    <BookingClass>B</BookingClass>
+  </SpecificFlight>
+
+</FlightAvailabilityRequest>
