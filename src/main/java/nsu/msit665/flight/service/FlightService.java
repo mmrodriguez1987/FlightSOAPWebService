@@ -11,7 +11,7 @@ import jakarta.xml.bind.JAXBException;
 import java.io.IOException;
 import java.util.List;
 
-@WebService(serviceName = "FlightService", targetNamespace = Constants.TARGET_NAMESPACE + "/ws" )
+@WebService(serviceName = "FlightService", targetNamespace =  "http://example.com/flight/ws" )
 public class FlightService {
 
     private FlightRepository repository = new FlightRepository();
@@ -35,7 +35,7 @@ public class FlightService {
             throw new RuntimeException("Failed to get flight: " + e.getMessage(), e);
         }
     }
-    
+
     @WebMethod(operationName = "getAllFlightIds")
     @WebResult(name = "flightIds")
     public List<String> getAllFlightIds() {
@@ -45,7 +45,7 @@ public class FlightService {
             throw new RuntimeException("Failed to get flight IDs: " + e.getMessage(), e);
         }
     }
-    
+
     @WebMethod(operationName = "deleteFlight")
     public void deleteFlight(@WebParam(name = "flightId") String flightId) {
         repository.deleteFlight(flightId);
