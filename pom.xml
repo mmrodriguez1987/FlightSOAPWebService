@@ -3,12 +3,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <groupId>nsu.msit665</groupId>
     <artifactId>FlightSOAPWebService</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
@@ -17,9 +15,7 @@
         <azure.resourceGroup>flight-service-rg</azure.resourceGroup>
         <azure.appName>flight-soap-service</azure.appName>
         <azure.region>eastus</azure.region>
-        <azure.hostname>${env.WEBSITE_HOSTNAME}</azure.hostname>
     </properties>
-
     <dependencies>
         <!-- JAX-WS API -->
         <dependency>
@@ -27,28 +23,24 @@
             <artifactId>jakarta.xml.ws-api</artifactId>
             <version>3.0.1</version>
         </dependency>
-        
         <!-- JAXB API -->
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
             <version>3.0.1</version>
         </dependency>
-        
         <!-- JAXB Runtime -->
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
             <version>3.0.2</version>
         </dependency>
-
         <!-- JAX-WS Runtime -->
         <dependency>
             <groupId>com.sun.xml.ws</groupId>
             <artifactId>jaxws-rt</artifactId>
             <version>3.0.2</version>
         </dependency>
-        
         <!-- Servlet API -->
         <dependency>
             <groupId>jakarta.servlet</groupId>
@@ -57,7 +49,6 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <!-- Azure Web App Maven Plugin -->
