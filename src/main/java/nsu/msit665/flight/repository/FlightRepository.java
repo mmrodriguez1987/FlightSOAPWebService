@@ -1,6 +1,6 @@
-package com.example.flight.repository;
+package nsu.msit665.flight.repository;
 
-import com.example.flight.model.FlightAvailabilityRequestType;
+import nsu.msit665.flight.model.FlightAvailabilityRequestType;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Marshaller;

@@ -1,3 +1,4 @@
+<!-- src/main/webapp/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,7 +75,7 @@
         <ul>
             <li>Use a SOAP client like SoapUI or Postman</li>
             <li>Generate client code using the WSDL with tools like wsimport, Apache CXF, or Spring-WS</li>
-            <li>Use the provided Java client in <code>com.example.flight.client.FlightServiceClient</code></li>
+            <li>Use the provided Java client in <code>nsu.msit665.flight.client.FlightServiceClient</code></li>
         </ul>
     </div>
 
@@ -89,31 +90,46 @@
 
             <div class="sample">
                 <h4>Sample Request</h4>
-                <pre>&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:flig="http://example.com/flight/ws" xmlns:exam="http://example.com/flight"&gt;
-   &lt;soapenv:Header/&gt;
-   &lt;soapenv:Body&gt;
-      &lt;flig:registerFlightRequest&gt;
-         &lt;flight&gt;
-            &lt;exam:Origin&gt;JFK&lt;/exam:Origin&gt;
-            &lt;exam:Destination&gt;LAX&lt;/exam:Destination&gt;
-            &lt;exam:DepartureDate&gt;2024-08-30&lt;/exam:DepartureDate&gt;
-            &lt;exam:FlightNumber&gt;AA123&lt;/exam:FlightNumber&gt;
-            &lt;exam:AvailableSeats&gt;100&lt;/exam:AvailableSeats&gt;
-            &lt;exam:Price&gt;299.99&lt;/exam:Price&gt;
-            &lt;exam:Passengers&gt;
-               &lt;exam:Passenger&gt;
-                  &lt;exam:Type&gt;ADT&lt;/exam:Type&gt;
-                  &lt;exam:Quantity&gt;2&lt;/exam:Quantity&gt;
-               &lt;/exam:Passenger&gt;
-               &lt;exam:Passenger&gt;
-                  &lt;exam:Type&gt;CHD&lt;/exam:Type&gt;
-                  &lt;exam:Quantity&gt;1&lt;/exam:Quantity&gt;
-               &lt;/exam:Passenger&gt;
-            &lt;/exam:Passengers&gt;
-         &lt;/flight&gt;
-      &lt;/flig:registerFlightRequest&gt;
-   &lt;/soapenv:Body&gt;
-&lt;/soapenv:Envelope&gt;</pre>
+                <pre>&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:flig="http://example.com/flight/ws"&gt;
+                  &lt;soapenv:Header/&gt;
+                  &lt;soapenv:Body&gt;
+                    &lt;flig:registerFlight&gt;
+                      &lt;flightRequest&gt;
+                        &lt;flig:Origin&gt;JFK&lt;/flig:Origin&gt;
+                        &lt;flig:Destination&gt;LAX&lt;/flig:Destination&gt;
+                        &lt;flig:DepartureDate&gt;2024-08-30&lt;/flig:DepartureDate&gt;
+                        &lt;flig:Passengers&gt;
+                          &lt;flig:Passenger&gt;
+                            &lt;flig:Type&gt;ADT&lt;/flig:Type&gt;
+                            &lt;flig:Quantity&gt;2&lt;/flig:Quantity&gt;
+                          &lt;/flig:Passenger&gt;
+                          &lt;flig:Passenger&gt;
+                            &lt;flig:Type&gt;CHD&lt;/flig:Type&gt;
+                            &lt;flig:Quantity&gt;1&lt;/flig:Quantity&gt;
+                          &lt;/flig:Passenger&gt;
+                        &lt;/flig:Passengers&gt;
+                        &lt;flig:TimeRange&gt;
+                          &lt;flig:From&gt;07:00&lt;/flig:From&gt;
+                          &lt;flig:To&gt;12:00&lt;/flig:To&gt;
+                        &lt;/flig:TimeRange&gt;
+                        &lt;flig:PreferredConnectingCities&gt;
+                          &lt;flig:ConnectingCity&gt;ATL&lt;/flig:ConnectingCity&gt;
+                        &lt;/flig:PreferredConnectingCities&gt;
+                        &lt;flig:PreferredAirlines&gt;
+                          &lt;flig:AirlineCode&gt;DL&lt;/flig:AirlineCode&gt;
+                        &lt;/flig:PreferredAirlines&gt;
+                        &lt;flig:FlightTypes&gt;
+                          &lt;flig:FlightType&gt;nonstop&lt;/flig:FlightType&gt;
+                        &lt;/flig:FlightTypes&gt;
+                        &lt;flig:SpecificAirline&gt;UA&lt;/flig:SpecificAirline&gt;
+                        &lt;flig:SpecificFlight&gt;
+                          &lt;flig:AirlineCode&gt;UA&lt;/flig:AirlineCode&gt;
+                          &lt;flig:FlightNumber&gt;UA100&lt;/flig:FlightNumber&gt;
+                        &lt;/flig:SpecificFlight&gt;
+                      &lt;/flightRequest&gt;
+                    &lt;/flig:registerFlight&gt;
+                  &lt;/soapenv:Body&gt;
+                &lt;/soapenv:Envelope&gt;</pre>
             </div>
         </div>
 
@@ -128,9 +144,9 @@
                 <pre>&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:flig="http://example.com/flight/ws"&gt;
    &lt;soapenv:Header/&gt;
    &lt;soapenv:Body&gt;
-      &lt;flig:getFlightRequest&gt;
+      &lt;flig:getFlight&gt;
          &lt;flightId&gt;FL-12345&lt;/flightId&gt;
-      &lt;/flig:getFlightRequest&gt;
+      &lt;/flig:getFlight&gt;
    &lt;/soapenv:Body&gt;
 &lt;/soapenv:Envelope&gt;</pre>
             </div>
@@ -147,7 +163,7 @@
                 <pre>&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:flig="http://example.com/flight/ws"&gt;
    &lt;soapenv:Header/&gt;
    &lt;soapenv:Body&gt;
-      &lt;flig:getAllFlightIdsRequest/&gt;
+      &lt;flig:getAllFlightIds&gt;/&lt;/flig:getAllFlightIds&gt;
    &lt;/soapenv:Body&gt;
 &lt;/soapenv:Envelope&gt;</pre>
             </div>
@@ -164,9 +180,9 @@
                 <pre>&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:flig="http://example.com/flight/ws"&gt;
    &lt;soapenv:Header/&gt;
    &lt;soapenv:Body&gt;
-      &lt;flig:deleteFlightRequest&gt;
+      &lt;flig:deleteFlight&gt;
          &lt;flightId&gt;FL-12345&lt;/flightId&gt;
-      &lt;/flig:deleteFlightRequest&gt;
+      &lt;/flig:deleteFlight&gt;
    &lt;/soapenv:Body&gt;
 &lt;/soapenv:Envelope&gt;</pre>
             </div>

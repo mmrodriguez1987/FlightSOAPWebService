@@ -2,6 +2,6 @@
 <endpoints xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime" version="2.0">
     <endpoint 
         name="FlightService"
-        implementation="com.example.flight.service.FlightService"
+        implementation="nsu.msit665.flight.service.FlightService"
         url-pattern="/services/flightService" />
 </endpoints>

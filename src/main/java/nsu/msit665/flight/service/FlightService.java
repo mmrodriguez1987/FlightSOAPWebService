@@ -1,7 +1,7 @@
-package com.example.flight.service;
+package nsu.msit665.flight.service;
 
-import com.example.flight.model.FlightAvailabilityRequestType;
-import com.example.flight.repository.FlightRepository;
+import nsu.msit665.flight.model.FlightAvailabilityRequestType;
+import nsu.msit665.flight.repository.FlightRepository;
 import jakarta.jws.WebMethod;
 import jakarta.jws.WebParam;
 import jakarta.jws.WebResult;
@@ -11,7 +11,7 @@ import jakarta.xml.bind.JAXBException;
 import java.io.IOException;
 import java.util.List;
 
-@WebService(serviceName = "FlightService", targetNamespace = "http://example.com/flight/ws")
+@WebService(serviceName = "FlightService", targetNamespace = Constants.TARGET_NAMESPACE + "/ws" )
 public class FlightService {
 
     private FlightRepository repository = new FlightRepository();
@@ -27,7 +27,7 @@ public class FlightService {
     }
 
     @WebMethod(operationName = "getFlight")
-    @WebResult(name = "com/example/flight")
+    @WebResult(name = "nsu/msit665/flight")
     public FlightAvailabilityRequestType getFlight(@WebParam(name = "flightId") String flightId) {
         try {
             return repository.getFlight(flightId);

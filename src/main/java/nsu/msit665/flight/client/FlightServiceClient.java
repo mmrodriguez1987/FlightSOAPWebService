@@ -1,7 +1,7 @@
-package com.example.flight.client;
+package nsu.msit665.flight.client;
 
-import com.example.flight.model.*;
-import com.example.flight.service.FlightService;
+import nsu.msit665.flight.model.*;
+import nsu.msit665.flight.service.FlightService;
 import jakarta.xml.ws.Service;
 
 import javax.xml.datatype.DatatypeFactory;
