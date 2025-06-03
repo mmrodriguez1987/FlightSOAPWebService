@@ -11,11 +11,8 @@ package nsu.msit665.flight.model;
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.datatype.XMLGregorianCalendar;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlSchemaType;
-import jakarta.xml.bind.annotation.XmlType;
+
+import jakarta.xml.bind.annotation.*;
 
 
 /**
@@ -99,6 +96,7 @@ import jakarta.xml.bind.annotation.XmlType;
     "specificAirline",
     "specificFlight"
 })
+@XmlRootElement(name = "flightRequest", namespace = "http://example.com/flight/ws")
 public class FlightAvailabilityRequestType {
 
     @XmlElement(name = "Origin", namespace = "http://example.com/flight", required = true)
