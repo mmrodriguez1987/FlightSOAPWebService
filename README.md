@@ -1,11 +1,7 @@
 # Flight SOAP Web Service
 
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+[![Maven Central](https://img.shields.io/maven-central/v/org.codehaus.mojo/jaxb2-maven-plugin.svg?label=Maven%20Central)](https://search.maven.org/artifact/org.codehaus.mojo/jaxb2-maven-plugin)
+[![Build Status](https://github.com/mojohaus/jaxb2-maven-plugin/actions/workflows/maven.yml/badge.svg)](https://github.com/mojohaus/jaxb2-maven-plugin/actions/workflows/maven.yml)
 
 A Java-based SOAP Web Service for managing flight information based on the flight.xsd schema. This project is part of an assignment for the MSIT665 Web Services class at Nova Southeastern University.
 
@@ -120,7 +116,7 @@ Delete a flight from the system
 To use this service, you can:
 - Use a SOAP client like SoapUI or Postman
 - Generate client code using the WSDL with tools like wsimport, Apache CXF, or Spring-WS
-- Use the provided Java client in `com.example.flight.client.FlightServiceClient`
+- Use the provided Java client in `nsu.msit665.flight.client.FlightServiceClient`
 
 ### Java Client Example
 

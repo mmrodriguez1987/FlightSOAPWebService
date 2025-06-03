@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.example</groupId>
+    <groupId>nsu.msit665</groupId>
     <artifactId>FlightSOAPWebService</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -17,6 +17,7 @@
         <azure.resourceGroup>flight-service-rg</azure.resourceGroup>
         <azure.appName>flight-soap-service</azure.appName>
         <azure.region>eastus</azure.region>
+        <azure.hostname>${env.WEBSITE_HOSTNAME}</azure.hostname>
     </properties>
 
     <dependencies>
@@ -40,7 +41,7 @@
             <artifactId>jaxb-runtime</artifactId>
             <version>3.0.2</version>
         </dependency>
-        
+
         <!-- JAX-WS Runtime -->
         <dependency>
             <groupId>com.sun.xml.ws</groupId>
@@ -110,7 +111,8 @@
                     <sources>
                         <source>${project.basedir}/src/main/resources/flight.xsd</source>
                     </sources>
-                    <packageName>com.example.flight.generated</packageName>
+                    <packageName>nsu.msit665.flight.model</packageName>
+                    <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
                     <clearOutputDir>false</clearOutputDir>
                     <noPackageLevelAnnotations>true</noPackageLevelAnnotations>
                 </configuration>
