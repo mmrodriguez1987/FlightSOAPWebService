@@ -27,7 +27,8 @@ public class FlightService {
     }
 
     @WebMethod(operationName = "getFlight")
-    @WebResult(name = "nsu/msit665/flight")
+    //@WebResult(name = "nsu/msit665/flight")
+    @WebResult(name = "flight")
     public FlightAvailabilityRequestType getFlight(@WebParam(name = "flightId") String flightId) {
         try {
             return repository.getFlight(flightId);
