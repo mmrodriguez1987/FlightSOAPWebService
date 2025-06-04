@@ -90,46 +90,52 @@
 
             <div class="sample">
                 <h4>Sample Request</h4>
-                <pre>&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:flig="http://example.com/flight/ws"&gt;
-                  &lt;soapenv:Header/&gt;
-                  &lt;soapenv:Body&gt;
-                    &lt;flig:registerFlight&gt;
-                      &lt;flightRequest&gt;
-                        &lt;flig:Origin&gt;JFK&lt;/flig:Origin&gt;
-                        &lt;flig:Destination&gt;LAX&lt;/flig:Destination&gt;
-                        &lt;flig:DepartureDate&gt;2024-08-30&lt;/flig:DepartureDate&gt;
-                        &lt;flig:Passengers&gt;
-                          &lt;flig:Passenger&gt;
-                            &lt;flig:Type&gt;ADT&lt;/flig:Type&gt;
-                            &lt;flig:Quantity&gt;2&lt;/flig:Quantity&gt;
-                          &lt;/flig:Passenger&gt;
-                          &lt;flig:Passenger&gt;
-                            &lt;flig:Type&gt;CHD&lt;/flig:Type&gt;
-                            &lt;flig:Quantity&gt;1&lt;/flig:Quantity&gt;
-                          &lt;/flig:Passenger&gt;
-                        &lt;/flig:Passengers&gt;
-                        &lt;flig:TimeRange&gt;
-                          &lt;flig:From&gt;07:00&lt;/flig:From&gt;
-                          &lt;flig:To&gt;12:00&lt;/flig:To&gt;
-                        &lt;/flig:TimeRange&gt;
-                        &lt;flig:PreferredConnectingCities&gt;
-                          &lt;flig:ConnectingCity&gt;ATL&lt;/flig:ConnectingCity&gt;
-                        &lt;/flig:PreferredConnectingCities&gt;
-                        &lt;flig:PreferredAirlines&gt;
-                          &lt;flig:AirlineCode&gt;DL&lt;/flig:AirlineCode&gt;
-                        &lt;/flig:PreferredAirlines&gt;
-                        &lt;flig:FlightTypes&gt;
-                          &lt;flig:FlightType&gt;nonstop&lt;/flig:FlightType&gt;
-                        &lt;/flig:FlightTypes&gt;
-                        &lt;flig:SpecificAirline&gt;UA&lt;/flig:SpecificAirline&gt;
-                        &lt;flig:SpecificFlight&gt;
-                          &lt;flig:AirlineCode&gt;UA&lt;/flig:AirlineCode&gt;
-                          &lt;flig:FlightNumber&gt;UA100&lt;/flig:FlightNumber&gt;
-                        &lt;/flig:SpecificFlight&gt;
-                      &lt;/flightRequest&gt;
-                    &lt;/flig:registerFlight&gt;
-                  &lt;/soapenv:Body&gt;
-                &lt;/soapenv:Envelope&gt;</pre>
+                <pre>&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://example.com/flight/ws" xmlns:flig="http://example.com/flight"&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;ws:registerFlight&gt;
+         &lt;!--Optional:--&gt;
+         &lt;flightRequest&gt;
+            &lt;flig:Origin&gt;JFK&lt;/flig:Origin&gt;
+            &lt;flig:Destination&gt;LAX&lt;/flig:Destination&gt;
+            &lt;flig:DepartureDate&gt;2024-08-30&lt;/flig:DepartureDate&gt;
+            &lt;flig:Passengers&gt;
+               &lt;!--1 or more repetitions:--&gt;
+               &lt;flig:Passenger Type="ADT" Quantity="2"/&gt;
+            &lt;/flig:Passengers&gt;
+            &lt;!--Optional:--&gt;
+            &lt;flig:TimeRange&gt;
+               &lt;flig:StartTime&gt;07:00&lt;/flig:StartTime&gt;
+               &lt;flig:EndTime&gt;12:00&lt;/flig:EndTime&gt;
+            &lt;/flig:TimeRange&gt;
+            &lt;!--Optional:--&gt;
+            &lt;flig:PreferredConnectingCities&gt;
+               &lt;!--1 or more repetitions:--&gt;
+               &lt;flig:ConnectingCity&gt;ATL&lt;/flig:ConnectingCity&gt;
+            &lt;/flig:PreferredConnectingCities&gt;
+            &lt;!--Optional:--&gt;
+            &lt;flig:PreferredAirlines&gt;
+               &lt;!--1 or more repetitions:--&gt;
+               &lt;flig:AirlineCode&gt;DL&lt;/flig:AirlineCode&gt;
+            &lt;/flig:PreferredAirlines&gt;
+            &lt;!--Optional:--&gt;
+            &lt;flig:FlightTypes&gt;
+               &lt;!--1 or more repetitions:--&gt;
+               &lt;flig:FlightType&gt;nonstop&lt;/flig:FlightType&gt;
+            &lt;/flig:FlightTypes&gt;
+            &lt;!--Optional:--&gt;
+            &lt;flig:SpecificAirline&gt;UA&lt;/flig:SpecificAirline&gt;
+            &lt;!--Optional:--&gt;
+            &lt;flig:SpecificFlight&gt;
+               &lt;flig:AirlineCode&gt;UA&lt;/flig:AirlineCode&gt;
+               &lt;flig:FlightNumber&gt;UA100&lt;/flig:FlightNumber&gt;
+               &lt;flig:FlightDate&gt;2024-08-30&lt;/flig:FlightDate&gt;
+               &lt;!--Optional:--&gt;
+               &lt;flig:BookingClass&gt;OT&lt;/flig:BookingClass&gt;
+            &lt;/flig:SpecificFlight&gt;
+         &lt;/flightRequest&gt;
+      &lt;/ws:registerFlight&gt;
+   &lt;/soapenv:Body&gt;</pre>
             </div>
         </div>
 

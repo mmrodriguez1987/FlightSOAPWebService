@@ -35,31 +35,52 @@ Register a new flight in the system
 
 **Sample Request:**
 ```xml
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:flig="http://example.com/flight/ws" xmlns:exam="http://example.com/flight">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <flig:registerFlightRequest>
-         <flight>
-            <exam:Origin>JFK</exam:Origin>
-            <exam:Destination>LAX</exam:Destination>
-            <exam:DepartureDate>2024-08-30</exam:DepartureDate>
-            <exam:FlightNumber>AA123</exam:FlightNumber>
-            <exam:AvailableSeats>100</exam:AvailableSeats>
-            <exam:Price>299.99</exam:Price>
-            <exam:Passengers>
-               <exam:Passenger>
-                  <exam:Type>ADT</exam:Type>
-                  <exam:Quantity>2</exam:Quantity>
-               </exam:Passenger>
-               <exam:Passenger>
-                  <exam:Type>CHD</exam:Type>
-                  <exam:Quantity>1</exam:Quantity>
-               </exam:Passenger>
-            </exam:Passengers>
-         </flight>
-      </flig:registerFlightRequest>
-   </soapenv:Body>
-</soapenv:Envelope>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://example.com/flight/ws" xmlns:flig="http://example.com/flight">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <ws:registerFlight>
+            <!--Optional:-->
+            <flightRequest>
+                <flig:Origin>JFK</flig:Origin>
+                <flig:Destination>LAX</flig:Destination>
+                <flig:DepartureDate>2024-08-30</flig:DepartureDate>
+                <flig:Passengers>
+                    <!--1 or more repetitions:-->
+                    <flig:Passenger Type="ADT" Quantity="2"/>
+                </flig:Passengers>
+                <!--Optional:-->
+                <flig:TimeRange>
+                    <flig:StartTime>07:00</flig:StartTime>
+                    <flig:EndTime>12:00</flig:EndTime>
+                </flig:TimeRange>
+                <!--Optional:-->
+                <flig:PreferredConnectingCities>
+                    <!--1 or more repetitions:-->
+                    <flig:ConnectingCity>ATL</flig:ConnectingCity>
+                </flig:PreferredConnectingCities>
+                <!--Optional:-->
+                <flig:PreferredAirlines>
+                    <!--1 or more repetitions:-->
+                    <flig:AirlineCode>DL</flig:AirlineCode>
+                </flig:PreferredAirlines>
+                <!--Optional:-->
+                <flig:FlightTypes>
+                    <!--1 or more repetitions:-->
+                    <flig:FlightType>nonstop</flig:FlightType>
+                </flig:FlightTypes>
+                <!--Optional:-->
+                <flig:SpecificAirline>UA</flig:SpecificAirline>
+                <!--Optional:-->
+                <flig:SpecificFlight>
+                    <flig:AirlineCode>UA</flig:AirlineCode>
+                    <flig:FlightNumber>UA100</flig:FlightNumber>
+                    <flig:FlightDate>2024-08-30</flig:FlightDate>
+                    <!--Optional:-->
+                    <flig:BookingClass>OT</flig:BookingClass>
+                </flig:SpecificFlight>
+            </flightRequest>
+        </ws:registerFlight>
+    </soapenv:Body>
 ```
 
 #### getFlight
@@ -69,13 +90,14 @@ Retrieve flight details by ID
 
 **Sample Request:**
 ```xml
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:flig="http://example.com/flight/ws">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <flig:getFlightRequest>
-         <flightId>FL-12345</flightId>
-      </flig:getFlightRequest>
-   </soapenv:Body>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://example.com/flight/ws">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <ws:getFlight>
+            <!--Optional:-->
+            <flightId>fb5f6107-9ce8-4ada-a176-68d9c5417b54</flightId>
+        </ws:getFlight>
+    </soapenv:Body>
 </soapenv:Envelope>
 ```
 
@@ -86,11 +108,11 @@ Get a list of all flight IDs in the system
 
 **Sample Request:**
 ```xml
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:flig="http://example.com/flight/ws">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <flig:getAllFlightIdsRequest/>
-   </soapenv:Body>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://example.com/flight/ws">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <ws:getAllFlightIds/>
+    </soapenv:Body>
 </soapenv:Envelope>
 ```
 
