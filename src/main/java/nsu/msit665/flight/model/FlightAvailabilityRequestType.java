@@ -96,7 +96,7 @@ import jakarta.xml.bind.annotation.*;
     "specificAirline",
     "specificFlight"
 })
-@XmlRootElement(name = "FlightAvailabilityRequest", namespace = "http://example.com/flight/ws")
+@XmlRootElement(name = "FlightAvailabilityRequestType", namespace = "http://example.com/flight/ws")
 public class FlightAvailabilityRequestType {
 
     @XmlElement(name = "Origin", namespace = "http://example.com/flight", required = true)
