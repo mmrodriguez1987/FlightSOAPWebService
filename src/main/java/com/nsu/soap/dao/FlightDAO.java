@@ -5,11 +5,22 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import com.nsu.soap.util.EnvConfig;
 
 public class FlightDAO {
 
+    private static final Map<String, Object> props = new HashMap<>();
+
+    static {
+        props.put("jakarta.persistence.jdbc.user", EnvConfig.get("db.user"));
+        props.put("jakarta.persistence.jdbc.password", EnvConfig.get("db.password"));
+        props.put("jakarta.persistence.jdbc.url", EnvConfig.get("db.url"));
+    }
+
     private static final EntityManagerFactory emf =
-            Persistence.createEntityManagerFactory("FlightSOAPWebServicePU");
+            Persistence.createEntityManagerFactory("FlightSOAPWebServicePU", props);
 
     public Flight create(Flight flight) {
         EntityManager em = emf.createEntityManager();
