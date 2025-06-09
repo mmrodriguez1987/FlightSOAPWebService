@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+                                 https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+    <persistence-unit name="FlightSOAPWebServicePU" transaction-type="RESOURCE_LOCAL">
+        <!-- Registra la clase Flight como entidad -->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <!--<class>com.nsu.soap.model.Flight</class>-->
+        <properties>
+            <!-- Mysql Database configuration
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/flights"/>
+            <property name="jakarta.persistence.jdbc.user" value="root"/>
+            <property name="jakarta.persistence.jdbc.password" value="root"/>-->
+            <property name="jakarta.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:sqlserver://nsumsit665.database.windows.net:1433;databaseName=flightdb"/>
+            <property name="jakarta.persistence.jdbc.user" value="sqladm"/>
+            <property name="jakarta.persistence.jdbc.password" value="Tchn0l0gy@@2025++"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>
+
+            <!-- Hibernate Dialect for MySQL (descomentar si se usa MySQL)
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/> -->
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>

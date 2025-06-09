@@ -1,209 +1,164 @@
-<!-- src/main/webapp/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flight SOAP Web Service</title>
+    <title>FlightSOAPWebService API Documentation</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            line-height: 1.6;
-            color: #333;
-        }
-        h1 {
-            color: #0066cc;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 10px;
-        }
-        .info {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .endpoints {
-            margin-top: 30px;
-        }
-        .endpoint {
-            background-color: #e9f5ff;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 25px;
-        }
-        code {
-            background-color: #f0f0f0;
-            padding: 2px 5px;
-            border-radius: 3px;
-            font-family: monospace;
-        }
-        pre {
-            background-color: #f5f5f5;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-            font-size: 14px;
-        }
-        .sample {
-            margin-top: 15px;
-            border-left: 3px solid #0066cc;
-            padding-left: 15px;
-        }
-        h4 {
-            margin-bottom: 5px;
-            color: #0066cc;
-        }
+        body { font-family: Arial, sans-serif; margin: 2rem; }
+        h1, h2, h3 { color: #2c3e50; }
+        pre { background: #ecf0f1; padding: 1rem; overflow-x: auto; }
+        code { color: #c0392b; }
+        section { margin-bottom: 2rem; }
     </style>
 </head>
 <body>
-    <h1>MSIT665 - Web Service -Flight SOAP Web Service</h1>
+<h1>FlightSOAPWebService API Documentation</h1>
+<p>This document describes how to use the SOAP endpoints provided by <code>FlightSOAPWebService</code>.</p>
 
-    <div class="info">
-        <p>This is a SOAP Web Service for managing flight information based on the flight.xsd schema.</p>
-        <p>The WSDL is available at: <a href="services/flightService?wsdl">services/flightService?wsdl</a></p>
-        <p>Endpoint URL: <code>http://[host]:[port]/FlightSOAPWebService/services/flightService</code></p>
-        <p>Developed by <a href="https://www.linkedin.com/in/mmrodriguez1987/">Marcos Rodriguez</a></p>
-        <p>Version: 1.0.0</p>
-        <p>Source code available in <a href="https://github.com/mmrodriguez1987/FlightSOAPWebService/tree/main">FlightSOAPWebService</a></p>
-    </div>
+<section>
+    <h2>Service Endpoint</h2>
+    <p><strong>WSDL URL:</strong></p>
+    <pre>http://{host}:{port}/{context-root}/soap/FlightService?wsdl</pre>
+</section>
 
-    <div class="info">
-        <h2>Getting Started</h2>
-        <p>To use this service, you can:</p>
-        <ul>
-            <li>Use a SOAP client like SoapUI or Postman</li>
-            <li>Generate client code using the WSDL with tools like wsimport, Apache CXF, or Spring-WS</li>
-            <li>Use the provided Java client in <code>nsu.msit665.flight.client.FlightServiceClient</code></li>
-        </ul>
-    </div>
-
-    <div class="endpoints">
-        <h2>Available Operations:</h2>
-
-        <div class="endpoint">
-            <h3>registerFlight</h3>
-            <p>Register a new flight in the system</p>
-            <p><strong>Input:</strong> FlightAvailabilityRequestType</p>
-            <p><strong>Output:</strong> String (flightId)</p>
-
-            <div class="sample">
-                <h4>Sample Request</h4>
-                <pre>&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ws="http://example.com/flight/ws" xmlns:flig="http://example.com/flight"&gt;
+<!-- Create Flight -->
+<section>
+    <h2>1. Create Flight</h2>
+    <p><strong>Operation:</strong> <code>createFlight</code></p>
+    <p><strong>Request:</strong></p>
+    <pre>&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:fl="http://soap.nsu.com/flights"&gt;
    &lt;soapenv:Header/&gt;
    &lt;soapenv:Body&gt;
-      &lt;ws:registerFlight&gt;
-         &lt;!--Optional:--&gt;
-         &lt;flightRequest&gt;
-            &lt;flig:Origin&gt;JFK&lt;/flig:Origin&gt;
-            &lt;flig:Destination&gt;LAX&lt;/flig:Destination&gt;
-            &lt;flig:DepartureDate&gt;2024-08-30&lt;/flig:DepartureDate&gt;
-            &lt;flig:Passengers&gt;
-               &lt;!--1 or more repetitions:--&gt;
-               &lt;flig:Passenger Type="ADT" Quantity="2"/&gt;
-            &lt;/flig:Passengers&gt;
-            &lt;!--Optional:--&gt;
-            &lt;flig:TimeRange&gt;
-               &lt;flig:StartTime&gt;07:00&lt;/flig:StartTime&gt;
-               &lt;flig:EndTime&gt;12:00&lt;/flig:EndTime&gt;
-            &lt;/flig:TimeRange&gt;
-            &lt;!--Optional:--&gt;
-            &lt;flig:PreferredConnectingCities&gt;
-               &lt;!--1 or more repetitions:--&gt;
-               &lt;flig:ConnectingCity&gt;ATL&lt;/flig:ConnectingCity&gt;
-            &lt;/flig:PreferredConnectingCities&gt;
-            &lt;!--Optional:--&gt;
-            &lt;flig:PreferredAirlines&gt;
-               &lt;!--1 or more repetitions:--&gt;
-               &lt;flig:AirlineCode&gt;DL&lt;/flig:AirlineCode&gt;
-            &lt;/flig:PreferredAirlines&gt;
-            &lt;!--Optional:--&gt;
-            &lt;flig:FlightTypes&gt;
-               &lt;!--1 or more repetitions:--&gt;
-               &lt;flig:FlightType&gt;nonstop&lt;/flig:FlightType&gt;
-            &lt;/flig:FlightTypes&gt;
-            &lt;!--Optional:--&gt;
-            &lt;flig:SpecificAirline&gt;UA&lt;/flig:SpecificAirline&gt;
-            &lt;!--Optional:--&gt;
-            &lt;flig:SpecificFlight&gt;
-               &lt;flig:AirlineCode&gt;UA&lt;/flig:AirlineCode&gt;
-               &lt;flig:FlightNumber&gt;UA100&lt;/flig:FlightNumber&gt;
-               &lt;flig:FlightDate&gt;2024-08-30&lt;/flig:FlightDate&gt;
-               &lt;!--Optional:--&gt;
-               &lt;flig:BookingClass&gt;OT&lt;/flig:BookingClass&gt;
-            &lt;/flig:SpecificFlight&gt;
-         &lt;/flightRequest&gt;
-      &lt;/ws:registerFlight&gt;
-   &lt;/soapenv:Body&gt;</pre>
-            </div>
-        </div>
-
-        <div class="endpoint">
-            <h3>getFlight</h3>
-            <p>Retrieve flight details by ID</p>
-            <p><strong>Input:</strong> String (flightId)</p>
-            <p><strong>Output:</strong> FlightAvailabilityRequestType</p>
-
-            <div class="sample">
-                <h4>Sample Request</h4>
-                <pre>&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:flig="http://example.com/flight/ws"&gt;
-   &lt;soapenv:Header/&gt;
-   &lt;soapenv:Body&gt;
-      &lt;flig:getFlight&gt;
-         &lt;flightId&gt;FL-12345&lt;/flightId&gt;
-      &lt;/flig:getFlight&gt;
+      &lt;fl:createFlight&gt;
+         &lt;flight&gt;
+            &lt;origin&gt;Miami&lt;/origin&gt;
+            &lt;destination&gt;New York&lt;/destination&gt;
+            &lt;departureDate&gt;2025-07-15&lt;/departureDate&gt;
+            &lt;passengers&gt;2&lt;/passengers&gt;
+            &lt;timeRange&gt;08:00-12:00&lt;/timeRange&gt;
+            &lt;preferredConnectingCities&gt;
+               &lt;city&gt;Atlanta&lt;/city&gt;
+               &lt;city&gt;Charlotte&lt;/city&gt;
+            &lt;/preferredConnectingCities&gt;
+            &lt;preferredAirlines&gt;
+               &lt;airline&gt;Delta&lt;/airline&gt;
+               &lt;airline&gt;United&lt;/airline&gt;
+            &lt;/preferredAirlines&gt;
+            &lt;flightTypes&gt;
+               &lt;type&gt;Direct&lt;/type&gt;
+               &lt;type&gt;WithStops&lt;/type&gt;
+            &lt;/flightTypes&gt;
+            &lt;specificAirline&gt;Delta&lt;/specificAirline&gt;
+            &lt;specificFlight&gt;DL1234&lt;/specificFlight&gt;
+         &lt;/flight&gt;
+      &lt;/fl:createFlight&gt;
    &lt;/soapenv:Body&gt;
 &lt;/soapenv:Envelope&gt;</pre>
-            </div>
-        </div>
+    <p><strong>Response:</strong></p>
+    <pre>&lt;fl:createFlightResponse&gt;
+   &lt;newFlight&gt;
+      &lt;id&gt;1&lt;/id&gt;
+      ...
+   &lt;/newFlight&gt;
+&lt;/fl:createFlightResponse&gt;</pre>
+    <p>Creates a new <code>Flight</code> record in the database, generates <code>flight-{id}.xml</code> in <code>data/xml</code>, and returns the created object.</p>
+</section>
 
-        <div class="endpoint">
-            <h3>getAllFlightIds</h3>
-            <p>Get a list of all flight IDs in the system</p>
-            <p><strong>Input:</strong> None</p>
-            <p><strong>Output:</strong> List of Strings (flightIds)</p>
-
-            <div class="sample">
-                <h4>Sample Request</h4>
-                <pre>&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:flig="http://example.com/flight/ws"&gt;
+<!-- Get Flight -->
+<section>
+    <h2>2. Get Flight</h2>
+    <p><strong>Operation:</strong> <code>getFlight</code></p>
+    <p><strong>Request:</strong></p>
+    <pre>&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:fl="http://soap.nsu.com/flights"&gt;
    &lt;soapenv:Header/&gt;
    &lt;soapenv:Body&gt;
-      &lt;flig:getAllFlightIds&gt;/&lt;/flig:getAllFlightIds&gt;
+      &lt;fl:getFlight&gt;
+         &lt;id&gt;1&lt;/id&gt;
+      &lt;/fl:getFlight&gt;
    &lt;/soapenv:Body&gt;
 &lt;/soapenv:Envelope&gt;</pre>
-            </div>
-        </div>
+    <p><strong>Response:</strong></p>
+    <pre>&lt;fl:getFlightResponse&gt;
+   &lt;flight&gt;
+      &lt;id&gt;1&lt;/id&gt;
+      &lt;origin&gt;Miami&lt;/origin&gt;
+      ...
+   &lt;/flight&gt;
+&lt;/fl:getFlightResponse&gt;</pre>
+    <p>Retrieves the <code>Flight</code> by its <code>id</code>. The response body contains the serialized <code>Flight</code>.</p>
+</section>
 
-        <div class="endpoint">
-            <h3>deleteFlight</h3>
-            <p>Delete a flight from the system</p>
-            <p><strong>Input:</strong> String (flightId)</p>
-            <p><strong>Output:</strong> None</p>
-
-            <div class="sample">
-                <h4>Sample Request</h4>
-                <pre>&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:flig="http://example.com/flight/ws"&gt;
+<!-- List Flights -->
+<section>
+    <h2>3. List Flights</h2>
+    <p><strong>Operation:</strong> <code>listFlights</code></p>
+    <p><strong>Request:</strong></p>
+    <pre>&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:fl="http://soap.nsu.com/flights"&gt;
    &lt;soapenv:Header/&gt;
    &lt;soapenv:Body&gt;
-      &lt;flig:deleteFlight&gt;
-         &lt;flightId&gt;FL-12345&lt;/flightId&gt;
-      &lt;/flig:deleteFlight&gt;
+      &lt;fl:listFlights/&gt;
    &lt;/soapenv:Body&gt;
 &lt;/soapenv:Envelope&gt;</pre>
-            </div>
-        </div>
-    </div>
+    <p><strong>Response:</strong></p>
+    <pre>&lt;fl:listFlightsResponse&gt;
+   &lt;flights&gt;
+      &lt;flight&gt;...&lt;/flight&gt;
+      &lt;flight&gt;...&lt;/flight&gt;
+   &lt;/flights&gt;
+&lt;/fl:listFlightsResponse&gt;</pre>
+    <p>Returns all <code>Flight</code> records in the database.</p>
+</section>
 
-    <div class="info">
-        <h2>Java Client Example</h2>
-        <p>You can use the Java client to interact with this service:</p>
-        <pre>
-FlightServiceClient client = new FlightServiceClient();
-FlightAvailabilityRequestType request = client.createSampleFlightRequest();
-String flightId = client.registerFlight(request);
-System.out.println("Flight registered with ID: " + flightId);
-        </pre>
-    </div>
+<!-- Update Flight -->
+<section>
+    <h2>4. Update Flight</h2>
+    <p><strong>Operation:</strong> <code>updateFlight</code></p>
+    <p><strong>Request:</strong></p>
+    <pre>&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:fl="http://soap.nsu.com/flights"&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;fl:updateFlight&gt;
+         &lt;flight&gt;
+            &lt;id&gt;1&lt;/id&gt;
+            &lt;origin&gt;Miami&lt;/origin&gt;
+            &lt;destination&gt;Boston&lt;/destination&gt;
+            ...
+         &lt;/flight&gt;
+      &lt;/fl:updateFlight&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</pre>
+    <p><strong>Response:</strong></p>
+    <pre>&lt;fl:updateFlightResponse&gt;
+   &lt;updatedFlight&gt;...&lt;/updatedFlight&gt;
+&lt;/fl:updateFlightResponse&gt;</pre>
+    <p>Updates an existing <code>Flight</code> by <code>id</code> and returns the updated object.</p>
+</section>
+
+<!-- Delete Flight -->
+<section>
+    <h2>5. Delete Flight</h2>
+    <p><strong>Operation:</strong> <code>deleteFlight</code></p>
+    <p><strong>Request:</strong></p>
+    <pre>&lt;soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:fl="http://soap.nsu.com/flights"&gt;
+   &lt;soapenv:Header/&gt;
+   &lt;soapenv:Body&gt;
+      &lt;fl:deleteFlight&gt;
+         &lt;id&gt;1&lt;/id&gt;
+      &lt;/fl:deleteFlight&gt;
+   &lt;/soapenv:Body&gt;
+&lt;/soapenv:Envelope&gt;</pre>
+    <p><strong>Response:</strong></p>
+    <pre>&lt;fl:deleteFlightResponse&gt;
+   &lt;result&gt;true&lt;/result&gt;
+&lt;/fl:deleteFlightResponse&gt;</pre>
+    <p>Deletes the <code>Flight</code> by <code>id</code>. Returns <code>true</code> if successful.</p>
+</section>
+
 </body>
 </html>
