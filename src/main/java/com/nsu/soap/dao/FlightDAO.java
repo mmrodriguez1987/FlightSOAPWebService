@@ -4,6 +4,7 @@ import com.nsu.soap.model.Flight;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.TypedQuery;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,7 +47,10 @@ public class FlightDAO {
     public List<Flight> findAll() {
         EntityManager em = emf.createEntityManager();
         try {
-            return em.createQuery("SELECT f FROM Flight f", Flight.class).getResultList();
+            String hql = "SELECT f FROM Flight f";
+            TypedQuery<Flight> query = em.createQuery(hql, Flight.class);
+            List<Flight> flights = query.getResultList();
+            return flights;
         } finally {
             em.close();
         }

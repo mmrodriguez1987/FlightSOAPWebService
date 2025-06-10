@@ -5,12 +5,14 @@
                                  https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
              version="3.0">
     <persistence-unit name="FlightSOAPWebServicePU" transaction-type="RESOURCE_LOCAL">
-        <!-- Registra la clase Flight como entidad -->
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <!--<class>com.nsu.soap.model.Flight</class>-->
+        <!-- register your entity class -->
+        <class>com.nsu.soap.model.Flight</class>
+        <!-- or enable classpath-scanning within your JAR -->
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-            <property name="jakarta.persistence.jdbc.url" value="{db.url}"/>
+            <property name="jakarta.persistence.jdbc.url" value="${db.url}"/>
             <property name="jakarta.persistence.jdbc.user" value="${db.user}"/>
             <property name="jakarta.persistence.jdbc.password" value="${db.password}"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.SQLServerDialect"/>

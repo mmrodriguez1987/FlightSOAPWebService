@@ -7,7 +7,7 @@ import jakarta.xml.bind.annotation.*;
 import java.util.List;
 
 @Entity
-@Table(name = "flights")
+@Table(name = "Flights")
 @XmlRootElement(name = "flight")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Flight {
