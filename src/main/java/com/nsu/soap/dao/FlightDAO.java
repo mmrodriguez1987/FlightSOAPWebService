@@ -18,6 +18,15 @@ public class FlightDAO {
         props.put("jakarta.persistence.jdbc.user", EnvConfig.get("db.user"));
         props.put("jakarta.persistence.jdbc.password", EnvConfig.get("db.password"));
         props.put("jakarta.persistence.jdbc.url", EnvConfig.get("db.url"));
+        props.put("hibernate.hbm2ddl.auto", EnvConfig.get("hb.hbm2ddl.auto"));
+        props.put("hibernate.show_sql", EnvConfig.get("hb.show_sql"));
+        props.put("hibernate.format_sql", EnvConfig.get("hb.format_sql"));
+        props.put("hibernate.dialect", EnvConfig.get("hb.dialect"));
+        props.put("hibernate.use_sql_comments", EnvConfig.get("hb.use_sql_comments"));
+        // — disable JPA 2.2 standard schema generation —
+        // (none | create | drop-and-create | drop)
+        props.put("jakarta.persistence.schema-generation.database.action", "none");
+        props.put("jakarta.persistence.schema-generation.script.action", "none");
     }
 
     private static final EntityManagerFactory emf =

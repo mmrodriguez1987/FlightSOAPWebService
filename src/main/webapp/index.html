@@ -19,7 +19,7 @@
 <section>
     <h2>Service Endpoint</h2>
     <p><strong>WSDL URL:</strong></p>
-    <pre>http://{host}:{port}/{context-root}/soap/FlightService?wsdl</pre>
+    <pre>http://{host}:{port}/{context-root}/FlightServiceSOAP?wsdl</pre>
 </section>
 
 <!-- Create Flight -->
@@ -63,7 +63,7 @@
       ...
    &lt;/newFlight&gt;
 &lt;/fl:createFlightResponse&gt;</pre>
-    <p>Creates a new <code>Flight</code> record in the database, generates <code>flight-{id}.xml</code> in <code>data/xml</code>, and returns the created object.</p>
+    <p>Creates a new <code>Flight</code> record in the database, generates <code>flight-{id}.xml</code> under <code>${catalina.base}/webapps/FlightSOAPWebService/data/xml</code>, and returns the created object.</p>
 </section>
 
 <!-- Get Flight -->

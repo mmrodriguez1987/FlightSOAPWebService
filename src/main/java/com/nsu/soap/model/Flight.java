@@ -4,6 +4,7 @@ package com.nsu.soap.model;
 
 import jakarta.persistence.*;
 import jakarta.xml.bind.annotation.*;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -26,7 +27,7 @@ public class Flight {
 
     @XmlElement(required = true)
     @Column(nullable = false)
-    private String departureDate;
+    private LocalDate departureDate;
 
     @XmlElement(required = true)
     @Column(nullable = false)
@@ -35,16 +36,28 @@ public class Flight {
     @XmlElement
     private String timeRange;
 
-    @XmlElementWrapper(name = "preferredConnectingCities")
-    @XmlElement(name = "city")
+    @ElementCollection
+    @CollectionTable(
+            name = "flight_preferred_connecting_cities",
+            joinColumns = @JoinColumn(name = "flight_id")
+    )
+    @Column(name = "city", nullable = false)
     private List<String> preferredConnectingCities;
 
-    @XmlElementWrapper(name = "preferredAirlines")
-    @XmlElement(name = "airline")
+    @ElementCollection
+    @CollectionTable(
+            name = "flight_preferred_airlines",
+            joinColumns = @JoinColumn(name = "flight_id")
+    )
+    @Column(name = "airline", nullable = false)
     private List<String> preferredAirlines;
 
-    @XmlElementWrapper(name = "flightTypes")
-    @XmlElement(name = "type")
+    @ElementCollection
+    @CollectionTable(
+            name = "flight_types",
+            joinColumns = @JoinColumn(name = "flight_id")
+    )
+    @Column(name = "type", nullable = false)
     private List<String> flightTypes;
 
     @XmlElement
@@ -59,7 +72,7 @@ public class Flight {
 
     public Flight(String origin,
                   String destination,
-                  String departureDate,
+                  LocalDate departureDate,
                   Integer passengers,
                   String timeRange,
                   List<String> preferredConnectingCities,
@@ -105,11 +118,11 @@ public class Flight {
         this.destination = destination;
     }
 
-    public String getDepartureDate() {
+    public LocalDate getDepartureDate() {
         return departureDate;
     }
 
-    public void setDepartureDate(String departureDate) {
+    public void setDepartureDate(LocalDate departureDate) {
         this.departureDate = departureDate;
     }
 
