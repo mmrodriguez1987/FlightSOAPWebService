@@ -18,7 +18,7 @@ target/
 .factorypath
 .project
 .settings
-.springBeans
+.springBeans`
 .sts4-cache
 
 ### NetBeans ###
@@ -40,3 +40,6 @@ build/
 ### smart tomcat ###
 .smarttomcat
 .mvn
+
+### Credentials ###
+/src/main/resources/env.properties
