@@ -7,8 +7,8 @@ import jakarta.jws.WebResult;
 import jakarta.jws.WebService;
 import java.util.List;
 
-@WebService(serviceName = "FlightServiceSOAP",
-        targetNamespace = "http://soap.nsu.com/flights")
+
+@WebService(serviceName = "FlightServiceSOAP", targetNamespace = "http://soap.nsu.com/flights")
 public interface FlightEndpoint {
 
     @WebMethod(operationName = "createFlight")

@@ -29,6 +29,7 @@ public final class JPAUtil {
             props.put("jakarta.persistence.jdbc.password", EnvConfig.get("db.password"));
             props.put("jakarta.persistence.jdbc.url", EnvConfig.get("db.url"));
             props.put("jakarta.persistence.schema-generation.database.action", EnvConfig.get("db.schema.action"));
+            props.put("jakarta.persistence.schema-generation.script.action", EnvConfig.get("db.schema.action"));
             props.put("hibernate.hbm2ddl.auto", EnvConfig.get("hb.hbm2ddl.auto"));
             props.put("hibernate.show_sql", EnvConfig.get("hb.show_sql"));
             props.put("hibernate.format_sql", EnvConfig.get("hb.format_sql"));

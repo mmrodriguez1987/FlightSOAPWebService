@@ -1,11 +1,9 @@
-// src/main/java/com/nsu/soap/model/Flight.java
-
 package com.nsu.soap.model;
 
 import jakarta.persistence.*;
 import jakarta.xml.bind.annotation.*;
-import java.time.LocalDate;
 import java.util.List;
+
 
 @Entity
 @Table(name = "Flights")
@@ -27,7 +25,7 @@ public class Flight {
 
     @XmlElement(required = true)
     @Column(nullable = false)
-    private LocalDate departureDate;
+    private String departureDate;
 
     @XmlElement(required = true)
     @Column(nullable = false)
@@ -72,7 +70,7 @@ public class Flight {
 
     public Flight(String origin,
                   String destination,
-                  LocalDate departureDate,
+                  String departureDate,
                   Integer passengers,
                   String timeRange,
                   List<String> preferredConnectingCities,
@@ -118,11 +116,11 @@ public class Flight {
         this.destination = destination;
     }
 
-    public LocalDate getDepartureDate() {
+    public String getDepartureDate() {
         return departureDate;
     }
 
-    public void setDepartureDate(LocalDate departureDate) {
+    public void setDepartureDate(String departureDate) {
         this.departureDate = departureDate;
     }
 

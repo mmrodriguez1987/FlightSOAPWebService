@@ -1,39 +1,29 @@
 package com.nsu.soap.dao;
 
 import com.nsu.soap.model.Flight;
+import com.nsu.soap.util.JPAUtil;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-import jakarta.persistence.TypedQuery;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.HashMap;
 import java.util.Map;
-import com.nsu.soap.util.EnvConfig;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
+
+/**
+ * DAO class for managing Flight entities in the database.
+ * Provides methods to create, read, update, and delete flights.
+ */
 public class FlightDAO {
 
-    private static final Map<String, Object> props = new HashMap<>();
-
-    static {
-        props.put("jakarta.persistence.jdbc.user", EnvConfig.get("db.user"));
-        props.put("jakarta.persistence.jdbc.password", EnvConfig.get("db.password"));
-        props.put("jakarta.persistence.jdbc.url", EnvConfig.get("db.url"));
-        props.put("hibernate.hbm2ddl.auto", EnvConfig.get("hb.hbm2ddl.auto"));
-        props.put("hibernate.show_sql", EnvConfig.get("hb.show_sql"));
-        props.put("hibernate.format_sql", EnvConfig.get("hb.format_sql"));
-        props.put("hibernate.dialect", EnvConfig.get("hb.dialect"));
-        props.put("hibernate.use_sql_comments", EnvConfig.get("hb.use_sql_comments"));
-        // — disable JPA 2.2 standard schema generation —
-        // (none | create | drop-and-create | drop)
-        props.put("jakarta.persistence.schema-generation.database.action", "none");
-        props.put("jakarta.persistence.schema-generation.script.action", "none");
-    }
-
-    private static final EntityManagerFactory emf =
-            Persistence.createEntityManagerFactory("FlightSOAPWebServicePU", props);
-
+    /**
+     * Creates a new flight record in the database.
+     *
+     * @param flight the flight to create
+     * @return the created flight with generated ID
+     */
     public Flight create(Flight flight) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em =  JPAUtil.getEntityManagerFactory().createEntityManager();
         try {
             em.getTransaction().begin();
             em.persist(flight);
@@ -44,29 +34,92 @@ public class FlightDAO {
         }
     }
 
+    /**
+     * Finds a flight by its ID, fetching all associated collections eagerly.
+     *
+     * @param id the ID of the flight to find
+     * @return the flight with all associations initialized
+     */
     public Flight findById(Long id) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em =  JPAUtil.getEntityManagerFactory().createEntityManager();
         try {
-            return em.find(Flight.class, id);
+            // 1. fetch preferredConnectingCities
+            Flight flight = em.createQuery(
+                            "SELECT f FROM Flight f LEFT JOIN FETCH f.preferredConnectingCities WHERE f.id = :id",
+                            Flight.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+
+            // 2. fetch preferredAirlines
+            em.createQuery(
+                            "SELECT f FROM Flight f LEFT JOIN FETCH f.preferredAirlines WHERE f.id = :id",
+                            Flight.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+
+            // 3. fetch flightTypes
+            em.createQuery(
+                            "SELECT f FROM Flight f LEFT JOIN FETCH f.flightTypes WHERE f.id = :id",
+                            Flight.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+            return flight;
         } finally {
             em.close();
         }
     }
 
+    /**
+     * Finds all flights in the database, fetching all associated collections eagerly.
+     *
+     * @return a list of all flights with all associations initialized
+     */
     public List<Flight> findAll() {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em =  JPAUtil.getEntityManagerFactory().createEntityManager();
         try {
-            String hql = "SELECT f FROM Flight f";
-            TypedQuery<Flight> query = em.createQuery(hql, Flight.class);
-            List<Flight> flights = query.getResultList();
-            return flights;
+            // 1. fetch preferredConnectingCities
+            List<Flight> flights = em.createQuery(
+                    "SELECT DISTINCT f FROM Flight f " +
+                            "LEFT JOIN FETCH f.preferredConnectingCities", Flight.class
+            ).getResultList();
+
+            // index by ID to merge later results
+            Map<Long, Flight> map = flights.stream()
+                    .collect(Collectors.toMap(Flight::getId, Function.identity()));
+
+            // 2. fetch preferredAirlines for same flights
+            em.createQuery(
+                            "SELECT f FROM Flight f " +
+                                    "LEFT JOIN FETCH f.preferredAirlines " +
+                                    "WHERE f.id IN :ids", Flight.class
+                    )
+                    .setParameter("ids", map.keySet())
+                    .getResultList();
+
+            // 3. fetch flightTypes for same flights
+            em.createQuery(
+                            "SELECT f FROM Flight f " +
+                                    "LEFT JOIN FETCH f.flightTypes " +
+                                    "WHERE f.id IN :ids", Flight.class
+                    )
+                    .setParameter("ids", map.keySet())
+                    .getResultList();
+
+            // return all flights with all associations initialized
+            return new ArrayList<>(map.values());
         } finally {
             em.close();
         }
     }
 
+    /**
+     * Updates an existing flight record in the database.
+     *
+     * @param flight the flight with updated information
+     * @return the updated flight
+     */
     public Flight update(Flight flight) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em =  JPAUtil.getEntityManagerFactory().createEntityManager();
         try {
             em.getTransaction().begin();
             Flight existing = em.find(Flight.class, flight.getId());
@@ -90,8 +143,14 @@ public class FlightDAO {
         }
     }
 
+    /**
+     * Deletes a flight record from the database by its ID.
+     *
+     * @param id the ID of the flight to delete
+     * @return true if the flight was deleted, false if it was not found
+     */
     public boolean delete(Long id) {
-        EntityManager em = emf.createEntityManager();
+        EntityManager em =  JPAUtil.getEntityManagerFactory().createEntityManager();
         try {
             em.getTransaction().begin();
             Flight f = em.find(Flight.class, id);
