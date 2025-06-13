@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal" created-in="IU-251.26094.121">
+    <data-source name="flightdb_on_azure" uuid="b9f9be06-1c21-4fdb-942f-c64a1ff7c974">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="AZURE" />
+      <schema-mapping />
+    </data-source>
+  </component>
+</project>

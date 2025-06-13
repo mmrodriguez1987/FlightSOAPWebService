@@ -37,7 +37,7 @@
             <version>3.2.0</version>
         </dependency>
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>7.0.0.Final</version>
         </dependency>
@@ -46,27 +46,18 @@
             <artifactId>mssql-jdbc</artifactId>
             <version>12.10.0.jre11</version>
         </dependency>
-        <!-- MySQL JDBC Driver (puede cambiarse a tu BD preferida) -->
-<!--        <dependency>-->
-<!--            <groupId>com.mysql</groupId>-->
-<!--            <artifactId>mysql-connector-j</artifactId>-->
-<!--            <version>9.3.0</version>-->
-<!--        </dependency>-->
     </dependencies>
     <build>
         <resources>
             <resource>
                 <directory>src/main/resources</directory> <!-- Default Maven resource folder -->
             </resource>
-            <resource>
-                <directory>src/my-resources</directory> <!-- Custom resource folder -->
-            </resource>
         </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.3.2</version>
+                <version>3.4.0</version>
             </plugin>
         </plugins>
     </build>
